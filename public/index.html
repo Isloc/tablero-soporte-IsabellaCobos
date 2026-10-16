@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mesa de ayuda</title>
+    <!-- Tailwind por CDN: hace falta internet para que carguen los estilos -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="app.js" defer></script>
+  </head>
+  <!--
+  Esta página todavía no tiene ninguna clase de Tailwind, por eso se ve
+  tan plana. Darle forma es el nivel 0 del enunciado.
+  Puedes añadir clases y contenedores, pero no cambies los id: app.js
+  depende de ellos.
+-->
+  <body>
+    <header class="bg-cyan-900 text-center py-3 text-white">
+      <h1 class="font-bold">Mesa de ayuda</h1>
+      <p>Tickets de soporte de la oficina</p>
+    </header>
+
+    <main>
+      <div class="flex flex-col lg:flex-row m-10 gap-4">
+        <!-- Formulario: crea tickets y, desde el nivel 4, también los edita -->
+        <section class="bg-purple-100 p-4 lg:w-1/3">
+          <h2 class="p-2 mb-4 border border-dashed" id="titulo-formulario">
+            Nuevo ticket
+          </h2>
+
+          <form id="form-ticket" novalidate>
+            <label class="block font-semibold" for="titulo">Título</label>
+            <input
+              class="w-full px-1 focus:bg-purple-300 bg-purple-200"
+              id="titulo"
+              name="titulo"
+              type="text"
+            />
+            <p id="error-titulo"></p>
+
+            <label class="block font-semibold" for="descripcion"
+              >Descripción</label
+            >
+            <textarea
+              class="w-full px-1 focus:bg-purple-300 bg-purple-200"
+              id="descripcion"
+              name="descripcion"
+              rows="3"
+            ></textarea>
+
+            <label class="block font-semibold" for="solicitante"
+              >Solicitante</label
+            >
+            <input
+              class="w-full px-1 focus:bg-purple-300 bg-purple-200"
+              id="solicitante"
+              name="solicitante"
+              type="text"
+            />
+            <p id="error-solicitante"></p>
+
+            <label class="block font-semibold" for="categoria">Categoría</label>
+            <select
+              class="w-full px-1 focus:bg-purple-300 bg-purple-200"
+              id="categoria"
+              name="categoria"
+            >
+              <option value="hardware">Hardware</option>
+              <option value="software">Software</option>
+              <option value="red">Red</option>
+              <option value="accesos">Accesos</option>
+            </select>
+            <div>
+              <label class="block font-semibold" for="prioridad"
+                >Prioridad</label
+              >
+              <select
+                class="w-full px-1 focus:bg-purple-300 bg-purple-200"
+                id="prioridad"
+                name="prioridad"
+              >
+                <option value="baja">Baja</option>
+                <option value="media" selected>Media</option>
+                <option value="alta">Alta</option>
+              </select>
+
+              <div class="flex justify-end gap-2 mt-4">
+                <button
+                  class="bg-cyan-600 text-white px-3 py-1 rounded-md hover:bg-cyan-500"
+                  id="btn-guardar"
+                  type="submit"
+                >
+                  Crear ticket
+                </button>
+                <button
+                  class="hidden bg-cyan-600 text-white px-3 py-1 rounded-md hover:bg-cyan-500"
+                  id="btn-cancelar"
+                  type="button"
+                >
+                  Cancelar edición
+                </button>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <!-- Tablero -->
+        <section class="bg-purple-100 p-4 lg:flex-1">
+          <h2 class="p-2 mb-4 border border-dashed">Tickets</h2>
+
+          <div id="resumen"></div>
+
+          <div class="flex flex-col md:flex-row">
+            <label class="block px-2" for="filtro-estado">Estado</label>
+            <select
+              class="px-1 focus:bg-purple-300 bg-purple-200"
+              id="filtro-estado"
+            >
+              <option value="todos">Todos</option>
+              <option value="abierto">Abiertos</option>
+              <option value="en_progreso">En progreso</option>
+              <option value="resuelto">Resueltos</option>
+            </select>
+
+            <label class="block px-2" for="busqueda">Buscar</label>
+            <input
+              class="px-1 focus:bg-purple-300 bg-purple-200"
+              id="busqueda"
+              type="search"
+              placeholder="Buscar por título"
+            />
+          </div>
+
+          <p id="mensaje"></p>
+
+          <div id="lista-tickets" class="grid md:grid-cols-2 gap-4 p-12"></div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
